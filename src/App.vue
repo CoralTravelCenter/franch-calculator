@@ -1,14 +1,13 @@
 <script setup>
-import {ref, provide, reactive} from "vue";
-import FirstStep from "./components/FirstStep.vue";
-import SecondStep from "./components/SecondStep.vue";
-import ThirdStep from "./components/ThirdStep.vue";
-import FourStep from "./components/FourStep.vue";
-import FiveStep from "./components/FiveStep.vue";
-import SixStep from "./components/SixStep.vue";
+import { ref, provide } from 'vue';
+import FirstStep from './components/FirstStep.vue';
+import SecondStep from './components/SecondStep.vue';
+import ThirdStep from './components/ThirdStep.vue';
+import FourStep from './components/FourStep.vue';
+import FiveStep from './components/FiveStep.vue';
+import SixStep from './components/SixStep.vue';
 import successResult from './components/successResult.vue';
 import failedResult from './components/failedResult.vue';
-
 
 const steps_counter = ref(1);
 const params = ref({
@@ -17,7 +16,7 @@ const params = ref({
 	rent_type: '',
 	rent_price: '',
 	personal: '',
-	tours_per_month: ''
+	tours_per_month: '',
 });
 const input_filled = ref(false);
 const calculation_result = ref(null);
@@ -31,7 +30,14 @@ provide('calculation_result', calculation_result);
 provide('show_result', show_result);
 provide('ok_or_not', ok_or_not);
 
-const steps_arr = [FirstStep, SecondStep, ThirdStep, FourStep, FiveStep, SixStep];
+const steps_arr = [
+	FirstStep,
+	SecondStep,
+	ThirdStep,
+	FourStep,
+	FiveStep,
+	SixStep,
+];
 
 function successOrNot() {
 	if (calculation_result.value.month_of_trading > 0) {
@@ -45,6 +51,6 @@ function successOrNot() {
 </script>
 
 <template>
-	<Component v-if="show_result" :is="successOrNot()"/>
-	<Component v-else :is="steps_arr[steps_counter - 1]"/>
+	<Component v-if="show_result" :is="successOrNot()" />
+	<Component v-else :is="steps_arr[steps_counter - 1]" />
 </template>
