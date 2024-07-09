@@ -64,7 +64,7 @@ export function calculator(
 ) {
 	const calculation_results = {
 		month_of_trading: null,
-		wanted_price_per_month,
+		wanted_price_per_month: wanted_price_per_month,
 		needed_tours: null,
 	};
 
@@ -79,9 +79,9 @@ export function calculator(
 			immutable.tax;
 		const denominator =
 			Number(tours) *
-				immutable.tour_price *
-				immutable.coefficient *
-				immutable.commission -
+			immutable.tour_price *
+			immutable.coefficient *
+			immutable.commission -
 			(get_rent + salary[city] * Number(personal) + immutable.royalties);
 		return Math.round(numerator / denominator);
 	};

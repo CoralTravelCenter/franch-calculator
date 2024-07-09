@@ -5,7 +5,9 @@ import {inject, onMounted} from "vue";
 const params = inject('params');
 const inputValue = inject('input_filled');
 onMounted(() => {
-	(params.value.wanted_price_per_month.length !== 0) ? inputValue.value = true : inputValue.value = false;
+	if (params.value.wanted_price_per_month) {
+		(params.value.wanted_price_per_month.length !== 0) ? inputValue.value = true : inputValue.value = false;
+	}
 })
 </script>
 
@@ -33,9 +35,8 @@ onMounted(() => {
 .input-container {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 	flex-wrap: wrap;
-	gap: 48px;
+	gap: 24px;
 
 	h3 {
 		margin: 0
