@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+body {
+	background: darkgray;
+	font-family: "Manrope", sans-serif;
+}
+
+*, *:after, *:before {
+	box-sizing: border-box;
+}
+
+.franch-calc-container {
+	width: 100%;
+	max-width: 1378px;
+	height: max(70vh, 500px);
+	display: flex;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+		height: auto;
+	}
+}
+
+.franch-calc-container__part {
+	padding: 48px 40px;
+	display: flex;
+	flex-direction: column;
+
+	@media (max-width: 768px) {
+		padding: 40px 30px;
+	}
+
+	.content {
+		margin-bottom: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 48px;
+	}
+
+	h2 {
+		font-size: 36px;
+		line-height: 1.2;
+		margin: 0;
+	}
+
+	h3 {
+		font-size: 20px;
+		margin: 0;
+	}
+
+	p {
+		font-size: 16px;
+		margin: 0;
+	}
+}
+
+.franch-calc-container__part.left {
+	background: #fff;
+	width: 60%;
+	border-bottom-left-radius: 20px;
+	border-top-left-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		border-top-right-radius: 20px;
+		border-top-left-radius: 20px;
+		border-bottom-left-radius: 0;
+	}
+}
+
+.franch-calc-container__part.right {
+	background: #E1F3FC;
+	width: 40%;
+	border-bottom-right-radius: 20px;
+	border-top-right-radius: 20px;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		border-bottom-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+		border-top-right-radius: 0;
+		min-height: 300px;
+	}
+
+	p {
+		margin: 0 0 24px 0;
+	}
+
+	ul {
+		padding-left: 2em;
+		margin: 0;
+		font-size: 16px;
+	}
+}
+
+#v-model-radiobutton {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+	clip: rect(0 0 0 0);
+}
+
+.input-container .checkbox {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 48px 0;
+}
+
+.custom-checkbox {
+	border-radius: var(--radius-borderRadiusXS, 4px);
+	border: 1px solid var(--colorBorder, rgba(0, 0, 0, 0.15));
+	background: var(--colorBgContainer, #FFF);
+	width: 20px;
+	height: 20px;
+	display: block;
+	transition: all 300ms ease;
+}
+
+.custom-radio {
+	padding: 12px 24px;
+	border-radius: var(--radius-borderRadiusXXL, 24px);
+	border: 1px solid rgba(0, 0, 0, 0.48);
+	background: transparent;
+	font-size: 14px;
+	color: #000;
+	display: block;
+	cursor: pointer;
+	transition: all 300ms ease;
+}
+
+.custom-text {
+	font-size: 16px;
+	flex: 1;
+	padding: 12px;
+	line-height: 1;
+	border-radius: 12px;
+	border: 1px solid var(--colorBorder, rgba(0, 0, 0, 0.15));
+	background: var(--colorBgContainer, #FFF);
+	min-width: 300px;
+}
+
+.custom-text.disabled {
+	border: 1px solid #E84F0E;
+}
+
+input[type="checkbox"]:checked ~ .custom-checkbox {
+	background: url('https://b2ccdn.coral.ru/content/franch-calculator/check.svg'), #0092D0;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size: contain;
+	border: 1px solid #0092D0;
+
+	@media (max-width: 768px) {
+		background-position: 100% 50%;
+	}
+}
+
+input[type="radio"]:checked ~ .custom-radio {
+	background: #E84F0E;
+	color: #fff;
+	border: 1px solid #E84F0E;
+}
+
+
+input[type="radio"]:disabled ~ .custom-radio {
+	opacity: .5;
+	cursor: auto;
+}
+
+.checkbox {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+
+	label {
+		display: flex;
+		gap: 15px;
+		align-items: center;
+	}
+}
+
+.coral-btn {
+	background: #0092D0;
+	padding: 12px 72px;
+	font-size: 16px;
+	color: #fff;
+	border-radius: 12px;
+	border: none;
+	cursor: pointer;
+	transition: all 300ms ease;
+	width: fit-content;
+
+	@media (max-width: 768px) {
+		width: 100%;
+	}
+
+	&:hover {
+		background: #66D1FF;
+	}
+
+	&[disabled] {
+		border-radius: var(--radius-borderRadiusMD, 12px);
+		border: 1px solid var(--colorBorder, rgba(0, 0, 0, 0.15));
+		background: var(--colorBgContainerDisabled, rgba(0, 0, 0, 0.04));
+		color: var(--colorTextDisabled, rgba(0, 0, 0, 0.25));
+	}
+}
+
+.coral-btn.gost {
+	background: transparent;
+	border: 1px solid var(--colorBorder, rgba(0, 0, 0, 0.15));
+	color: #000;
+	transition: all 300ms ease;
+
+	&:hover {
+		color: #66D1FF;
+		border: 1px solid #66D1FF;
+	}
+}
+
+.franch-calc-container__part.right {
+	display: flex;
+	flex-direction: column;
+}
+
+.result-hedline {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	gap: 24px;
+
+	> img {
+		flex-shrink: 0;
+		max-width: 100%;
+		object-fit: contain;
+	}
+}
+
+input:disabled {
+	opacity: 0.5;
+}

@@ -1,0 +1,92 @@
+const immutable = {
+	tour_price: 96000,
+	coefficient: 2.2,
+	commission: 0.08,
+	contribution: 36000,
+	royalties: 18000,
+	tax: 0.06,
+	start_up_capital: 300000
+}
+
+const rent = {
+	TC: {
+		capital: 150000,
+		millionnik: 100000,
+		small: 100000
+	},
+	BC: {
+		capital: 100000,
+		millionnik: 80000,
+		small: 40000
+	},
+	SR: {
+		capital: 100000,
+		millionnik: 80000,
+		small: 40000
+	}
+}
+
+const salary = {
+	capital: 55000,
+	millionnik: 50000,
+	small: 40000
+}
+
+function checkDifference(num1, num2) {
+	const difference = Math.abs(num1 - num2);
+	return difference <= 100000;
+}
+
+export function declination(word, number) {
+	let ending;
+
+	if (number % 10 === 1 && number % 100 !== 11) {
+		ending = '';
+	} else if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
+		ending = 'а';
+	} else {
+		ending = 'ев';
+	}
+
+	return word + ending;
+}
+
+
+export function calculator(city, rent_type, personal, tours, wanted_price_per_month) {
+	const calculation_results = {
+		month_of_trading: null,
+		wanted_price_per_month: wanted_price_per_month,
+		neded_tours: null
+	}
+
+	const get_rent = rent[rent_type][city];
+
+	const monthCalculation = () => {
+		let numerator = immutable.start_up_capital + get_rent + salary[city] * Number(personal) + immutable.contribution / 1 - immutable.tax;
+		let denominator = (Number(tours) * immutable.tour_price * immutable.coefficient * immutable.commission) - (get_rent + salary[city] * Number(personal) + immutable.royalties);
+		console.log(numerator, denominator)
+		return Math.round(numerator / denominator)
+	}
+
+	const potentialProfitability = () => {
+		return ((Number(tours) * immutable.tour_price * immutable.coefficient * immutable.commission) - (get_rent + (salary[city] * Number(personal)) + immutable.royalties)) * (1 - immutable.tax)
+	}
+
+	const nededTours = () => {
+		let numerator = (Number(wanted_price_per_month) / (1 - immutable.tax)) + (get_rent + (salary[city] * Number(personal)) + immutable.royalties);
+		let denominator = immutable.tour_price * immutable.coefficient * immutable.commission
+		return Math.round(numerator / denominator)
+	}
+
+	if (Number(wanted_price_per_month) >= potentialProfitability()) {
+		calculation_results.month_of_trading = monthCalculation() + 1;
+	}
+
+	if (Number(wanted_price_per_month) < potentialProfitability()) {
+		if (checkDifference(Number(wanted_price_per_month), potentialProfitability())) {
+			calculation_results.neded_tours = nededTours() - Number(tours);
+		}
+	}
+
+	return calculation_results;
+}
