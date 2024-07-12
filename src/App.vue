@@ -1,5 +1,5 @@
 <script setup>
-import { ref, provide } from 'vue';
+import {ref, provide} from 'vue';
 import FirstStep from './components/FirstStep.vue';
 import SecondStep from './components/SecondStep.vue';
 import ThirdStep from './components/ThirdStep.vue';
@@ -51,6 +51,8 @@ function successOrNot() {
 </script>
 
 <template>
-	<Component v-if="show_result" :is="successOrNot()" />
-	<Component v-else :is="steps_arr[steps_counter - 1]" />
+	<section class="franch-calculator">
+		<Component v-if="show_result" :is="successOrNot()"/>
+		<Component v-else :is="steps_arr[steps_counter - 1]"/>
+	</section>
 </template>
