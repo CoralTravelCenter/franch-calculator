@@ -72,38 +72,24 @@ export function calculator(
 
 	const monthCalculation = () => {
 		const numerator =
-			immutable.start_up_capital +
-			get_rent +
-			salary[city] * Number(personal) +
-			immutable.contribution / 1 -
-			immutable.tax;
+			(immutable.start_up_capital + get_rent + salary[city] * personal + immutable.contribution) / ( 1 - immutable.tax);
 		const denominator =
-			Number(tours) *
-			immutable.tour_price *
-			immutable.coefficient *
-			immutable.commission -
-			(get_rent + salary[city] * Number(personal) + immutable.royalties);
-		return Math.round(numerator / denominator);
+			(tours * immutable.tour_price * immutable.coefficient * immutable.commission) -
+			(get_rent + salary[city] * personal + immutable.royalties);
+		// return Math.round(numerator / denominator);
+		return Math.ceil(numerator / denominator);
 	};
 
 	const potentialProfitability = () => {
-		return (
-			(Number(tours) *
-				immutable.tour_price *
-				immutable.coefficient *
-				immutable.commission -
-				(get_rent + salary[city] * Number(personal) + immutable.royalties)) *
-			(1 - immutable.tax)
-		);
+		return (tours * immutable.tour_price * immutable.coefficient * immutable.commission) -
+				(get_rent + salary[city] * personal + immutable.royalties) * (1 - immutable.tax);
 	};
 
 	const neededTours = () => {
-		const numerator =
-			Number(wanted_price_per_month) / (1 - immutable.tax) +
-			(get_rent + salary[city] * Number(personal) + immutable.royalties);
-		const denominator =
-			immutable.tour_price * immutable.coefficient * immutable.commission;
-		return Math.round(numerator / denominator);
+		const numerator = wanted_price_per_month / (1 - immutable.tax) + (get_rent + salary[city] * personal + immutable.royalties);
+		const denominator = immutable.tour_price * immutable.coefficient * immutable.commission;
+		// return Math.round(numerator / denominator);
+		return Math.ceil(numerator / denominator);
 	};
 
 	if (Number(wanted_price_per_month) >= potentialProfitability()) {
