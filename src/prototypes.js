@@ -10,12 +10,19 @@ Number.prototype.asRoubles = function () {
     const n = Math.floor(this);
     return n.pluralForm('рубл', ['ей', 'ь', 'я', 'я', 'я', 'ей', 'ей', 'ей', 'ей', 'ей']);
 };
+Number.prototype.asTours = function () {
+    const n = Math.floor(this);
+    return n.pluralForm('тур', ['ов', '', 'а', 'а', 'а', 'ов', 'ов', 'ов', 'ов', 'ов']);
+};
 
 String.prototype.asMonths = function () {
     return Number(this).asMonths();
 };
 String.prototype.asRoubles = function () {
     return Number(this).asRoubles();
+};
+String.prototype.asTours = function () {
+    return Number(this).asTours();
 };
 
 export default null;
