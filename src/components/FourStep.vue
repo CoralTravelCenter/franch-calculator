@@ -1,10 +1,23 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { ref, inject, onMounted } from "vue";
+import { ref, inject, onMounted, computed } from "vue";
+
+import { rent } from "../calculator.js";
 
 const isDisabled = ref(false);
 const params = inject("params");
 const inputValue = inject("input_filled");
+
+const rent_cost_TC = computed(() => {
+    return rent.TC[params.value.city];
+});
+const rent_cost_BC = computed(() => {
+    return rent.BC[params.value.city];
+});
+const rent_cost_SR = computed(() => {
+    return rent.SR[params.value.city];
+});
+
 onMounted(() => {
     params.value.rent_type.length !== 0
         ? (inputValue.value = true)
@@ -86,9 +99,9 @@ onMounted(() => {
             </p>
             <p>
                 <strong>
-                    ТЦ — Х рублей<br />
-                    БЦ — Y рублей<br />
-                    Стрит-ретейл — Z рублей
+                    ТЦ — {{ rent_cost_TC }} рублей<br />
+                    БЦ — {{ rent_cost_BC }} рублей<br />
+                    Стрит-ретейл — {{ rent_cost_SR }} рублей
                 </strong>
             </p>
         </div>

@@ -8,7 +8,7 @@ const immutable = {
 	start_up_capital: 300000,
 };
 
-const rent = {
+export const rent = {
 	TC: {
 		capital: 150000,
 		millionnik: 100000,
