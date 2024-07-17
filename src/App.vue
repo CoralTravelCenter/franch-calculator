@@ -40,7 +40,8 @@ const steps_arr = [
 ];
 
 function successOrNot() {
-    if (calculation_result.value.month_of_trading > 0) {
+    // if (calculation_result.value.month_of_trading > 0) {
+    if (calculation_result.value.months_until_roi > 0) {
         ok_or_not.value = true;
         return successResult;
     } else {

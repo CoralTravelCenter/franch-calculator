@@ -86,5 +86,12 @@ export function calculator(
 		calculation_results.needed_tours = neededTours() - tours;
 	}
 
-	return calculation_results;
+	return {
+		months_until_roi: monthCalculation(),
+		wanted_profit: Number(wanted_price_per_month),
+		anticipated_profit: potentialProfitability(),
+		profitable_tours_count: neededTours()
+	};
+
+	// return calculation_results;
 }

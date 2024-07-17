@@ -18,16 +18,16 @@ const get_result = inject('calculation_result');
 				</div>
 				<div class="text">
 					<h3>
-						Ваши вложения окупятся через {{ get_result.month_of_trading }}
-						{{ get_result.month_of_trading.asMonths() }}
+						Ваши вложения окупятся через {{ get_result.months_until_roi }}
+						{{ get_result.months_until_roi.asMonths() }}
 					</h3>
 					<p>
 						А на ежемесячный доход не менее
-						{{ get_result.wanted_price_per_month }}
-                        {{ get_result.wanted_price_per_month.asRoubles() }}
+						{{ get_result.wanted_profit }}
+                        {{ get_result.wanted_profit.asRoubles() }}
                         вы выйдете через
-                        {{ (get_result.month_of_trading + 1) }}
-						{{ (get_result.month_of_trading + 1).asMonths() }}
+                        {{ (get_result.months_until_roi + 1) }}
+						{{ (get_result.months_until_roi + 1).asMonths() }}
 					</p>
 				</div>
 			</div>
@@ -35,11 +35,11 @@ const get_result = inject('calculation_result');
 		</div>
 		<div class="franch-calc-container__part right">
 			<p>
-				{{ get_result.month_of_trading }}
-				{{ get_result.month_of_trading.asMonths() }} – это
+				{{ get_result.months_until_roi }}
+				{{ get_result.months_until_roi.asMonths() }} – это
 				превосходный результат! В среднем наши франчайзи выходят на чистую
-				прибыль уже спустя {{ get_result.month_of_trading }}
-				{{ get_result.month_of_trading.asMonths() }}
+				прибыль уже спустя {{ get_result.months_until_roi }}
+				{{ get_result.months_until_roi.asMonths() }}
 				после открытия офиса.
 			</p>
 			<button class="coral-btn coral-btn-consultation">
