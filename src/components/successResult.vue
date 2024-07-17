@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue';
 import Navigation from './Navigation.vue';
-import { declination } from '../calculator.js';
+import ___ from '../prototypes.js';
 
 const get_result = inject('calculation_result');
 </script>
@@ -19,14 +19,15 @@ const get_result = inject('calculation_result');
 				<div class="text">
 					<h3>
 						Ваши вложения окупятся через {{ get_result.month_of_trading }}
-						{{ declination('месяц', get_result.month_of_trading) }}
+						{{ get_result.month_of_trading.asMonths() }}
 					</h3>
 					<p>
 						А на ежемесячный доход не менее
-						{{ get_result.wanted_price_per_month }} рублей вы выйдете через {{
-							get_result.month_of_trading + 1
-						}}
-						{{ declination('месяц', get_result.month_of_trading) }}
+						{{ get_result.wanted_price_per_month }}
+                        {{ get_result.wanted_price_per_month.asRoubles() }}
+                        вы выйдете через
+                        {{ (get_result.month_of_trading + 1) }}
+						{{ (get_result.month_of_trading + 1).asMonths() }}
 					</p>
 				</div>
 			</div>
@@ -35,10 +36,10 @@ const get_result = inject('calculation_result');
 		<div class="franch-calc-container__part right">
 			<p>
 				{{ get_result.month_of_trading }}
-				{{ declination('месяц', get_result.month_of_trading) }} – это
+				{{ get_result.month_of_trading.asMonths() }} – это
 				превосходный результат! В среднем наши франчайзи выходят на чистую
 				прибыль уже спустя {{ get_result.month_of_trading }}
-				{{ declination('месяц', get_result.month_of_trading) }}
+				{{ get_result.month_of_trading.asMonths() }}
 				после открытия офиса.
 			</p>
 			<button class="coral-btn coral-btn-consultation">

@@ -37,24 +37,6 @@ function checkDifference(num1, num2) {
 	return difference <= 100000;
 }
 
-export function declination(word, number) {
-	let ending;
-
-	if (number % 10 === 1 && number % 100 !== 11) {
-		ending = '';
-	} else if (
-		number % 10 >= 2 &&
-		number % 10 <= 4 &&
-		(number % 100 < 10 || number % 100 >= 20)
-	) {
-		ending = 'а';
-	} else {
-		ending = 'ев';
-	}
-
-	return word + ending;
-}
-
 export function calculator(
 	city,
 	rent_type,
@@ -93,14 +75,15 @@ export function calculator(
 	};
 
 	if (Number(wanted_price_per_month) >= potentialProfitability()) {
-		calculation_results.month_of_trading = monthCalculation() + 1;
+		// calculation_results.month_of_trading = monthCalculation() + 1;
+		calculation_results.month_of_trading = monthCalculation();
 	}
 
 	if (
 		Number(wanted_price_per_month) < potentialProfitability() &&
 		checkDifference(Number(wanted_price_per_month), potentialProfitability())
 	) {
-		calculation_results.needed_tours = neededTours() - Number(tours);
+		calculation_results.needed_tours = neededTours() - tours;
 	}
 
 	return calculation_results;
