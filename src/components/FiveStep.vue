@@ -37,7 +37,8 @@ function commit() {
                 <div class="input-container">
 
                     <el-input class="people" v-model="params.personal" clearable
-                              :parser="parsePeople" :formatter="formatPeople" @keyup.enter="commit">
+                              :parser="parsePeople" :formatter="formatPeople" autofocus
+                              @keyup.enter="commit">
                         <template #append><span>чел.</span></template>
                     </el-input>
                 </div>

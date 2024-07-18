@@ -37,7 +37,7 @@ onMounted(() => {
                 <div class="input-container">
                     <h3>Когда я буду зарабатывать в месяц</h3>
                     <el-input class="money" v-model="params.wanted_price_per_month" clearable
-                              :parser="parseMoney" :formatter="formatMoney" @keyup.enter="commit">
+                              :parser="parseMoney" :formatter="formatMoney" @keyup.enter="commit" autofocus>
                         <template #append><span>₽</span></template>
                     </el-input>
                 </div>
