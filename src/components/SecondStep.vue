@@ -57,8 +57,7 @@ onMounted(() => {
 }
 
 .franch-calc-container__part.right {
-    background: url("https://b2ccdn.coral.ru/content/franch-calculator/hand.png"),
-        #e1f3fc;
+    background: url("https://b2ccdn.coral.ru/content/franch-calculator/hand.png") #e1f3fc;
     background-repeat: no-repeat;
     background-position: 100% 50%;
     background-size: contain;

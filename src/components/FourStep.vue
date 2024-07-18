@@ -115,9 +115,11 @@ watchEffect(() => {
             </p>
             <p>
                 <strong>
-                    ТЦ — {{ rent_cost_TC }} рублей<br />
-                    БЦ — {{ rent_cost_BC }} рублей<br />
-                    Стрит-ретейл — {{ rent_cost_SR }} рублей
+                    ТЦ &mdash; {{ rent_cost_TC.formatCurrency() }}
+                    <br />
+                    БЦ &mdash; {{ rent_cost_BC.formatCurrency() }}
+                    <br />
+                    Стрит-ретейл &mdash; {{ rent_cost_SR.formatCurrency() }}
                 </strong>
             </p>
         </div>
