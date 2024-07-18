@@ -42,7 +42,8 @@ export function calculator(
 	rent_type,
 	personal,
 	tours,
-	wanted_price_per_month
+	wanted_price_per_month,
+	rent_value
 ) {
 	const calculation_results = {
 		month_of_trading: null,
@@ -50,7 +51,7 @@ export function calculator(
 		needed_tours: null,
 	};
 
-	const get_rent = rent[rent_type][city];
+	const get_rent = rent_type ? rent[rent_type][city] : rent_value;
 
 	const monthCalculation = () => {
 		const numerator =

@@ -26,6 +26,7 @@ function initResultStep() {
         result_obj.value.personal,
         result_obj.value.tours_per_month,
         result_obj.value.wanted_price_per_month,
+        Number(result_obj.value.rent_price)
     );
     show_result.value = true;
 }
