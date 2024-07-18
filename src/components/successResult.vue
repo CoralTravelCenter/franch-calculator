@@ -39,8 +39,7 @@ const success_beyond_18 = computed(() => {
 					</h3>
 					<p>
 						А на ежемесячный доход не менее
-                        <strong>{{ get_result.wanted_profit }}</strong>
-                        {{ get_result.wanted_profit.asRoubles() }}
+                        <strong>{{ get_result.wanted_profit.formatCurrency() }}</strong>
                         вы выйдете через
                         <strong>{{ (get_result.months_until_roi + 1) }}</strong>
 						{{ (get_result.months_until_roi + 1).asMonths() }}
@@ -61,10 +60,11 @@ const success_beyond_18 = computed(() => {
                         {{ get_result.months_until_roi.asMonths() }}
                     </h3>
                     <p>
-                        К сожалению, при продаже <strong>{{ params.tours_per_month }}</strong> {{ params.tours_per_month.asTours() }} в месяц Вы не сможете зарабатывать
-                        <strong>{{ get_result.wanted_profit }}</strong>.
+                        К сожалению, при продаже <strong>{{ params.tours_per_month }}</strong> {{ params.tours_per_month.asTours() }} в месяц
+                        Вы не сможете зарабатывать
+                        <strong>{{ get_result.wanted_profit.formatCurrency() }}</strong>.
                         <br>
-                        Но выйти на ожидаемый уровень Вы сможете, продавая лишь на
+                        Но выйти на ожидаемый уровень Вы сможете, продавая лишь на
                         <strong>{{ (get_result.profitable_tours_count - params.tours_per_month) }}</strong>
                         {{ (get_result.profitable_tours_count - params.tours_per_month).asTours() }}
                         больше.

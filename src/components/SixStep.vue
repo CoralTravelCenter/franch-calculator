@@ -1,14 +1,22 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { inject, onMounted } from "vue";
+import { inject, onMounted, watchEffect } from "vue";
 
 const params = inject("params");
 const inputValue = inject("input_filled");
-onMounted(() => {
-    params.value.tours_per_month.length !== 0
-        ? (inputValue.value = true)
-        : (inputValue.value = false);
+
+function parseTours(input) {
+    return input.replace(/\D/g, '');
+}
+
+function formatTours(input) {
+    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
+}
+
+watchEffect(() => {
+    inputValue.value = !!params.value.tours_per_month.length && Number(params.value.tours_per_month) > 0;
 });
+
 </script>
 
 <template>
@@ -17,13 +25,12 @@ onMounted(() => {
             <div class="content">
                 <h2>Сколько туров в месяц планируете продавать?</h2>
                 <div class="input-container">
-                    <input
-                        class="custom-text"
-                        v-model="params.tours_per_month"
-                        placeholder="Введите количество"
-                        maxlength="6"
-                        @input="inputValue = true"
-                    />
+
+                    <el-input class="people" v-model="params.tours_per_month" clearable
+                              :parser="parseTours" :formatter="formatTours">
+                        <template #append><span>шт.</span></template>
+                    </el-input>
+
                 </div>
             </div>
             <Navigation />

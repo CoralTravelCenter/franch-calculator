@@ -1,6 +1,6 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { ref, inject, onMounted, computed } from "vue";
+import { ref, inject, onMounted, computed, watchEffect } from "vue";
 
 import { rent } from "../calculator.js";
 
@@ -18,11 +18,33 @@ const rent_cost_SR = computed(() => {
     return rent.SR[params.value.city];
 });
 
-onMounted(() => {
-    params.value.rent_type.length !== 0
-        ? (inputValue.value = true)
-        : (inputValue.value = false);
+function parseMoney(input) {
+    return input.replace(/\D/g, '');
+}
+
+function formatMoney(input) {
+    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
+}
+
+watchEffect(() => {
+    if (isDisabled.value) {
+        params.value.rent_type = '';
+    }
 });
+
+watchEffect(() => {
+    if (params.value.rent_type) {
+        isDisabled.value = false;
+        params.value.rent_price = '';
+    }
+});
+
+onMounted(() => inputValue.value = !!params.value.rent_type);
+
+watchEffect(() => {
+    inputValue.value = !!params.value.rent_type || Number(params.value.rent_price) > 0;
+});
+
 </script>
 
 <template>
@@ -40,7 +62,6 @@ onMounted(() => {
                                 value="TC"
                                 v-model="params.rent_type"
                                 @change="inputValue = true"
-                                :disabled="isDisabled"
                             />
                             <span class="custom-radio">Торговый центр</span>
                         </label>
@@ -52,7 +73,6 @@ onMounted(() => {
                                 value="BC"
                                 v-model="params.rent_type"
                                 @change="inputValue = true"
-                                :disabled="isDisabled"
                             />
                             <span class="custom-radio">Бизнес-центр</span>
                         </label>
@@ -64,7 +84,6 @@ onMounted(() => {
                                 value="SR"
                                 v-model="params.rent_type"
                                 @change="inputValue = true"
-                                :disabled="isDisabled"
                             />
                             <span class="custom-radio">Стрит-ретейл</span>
                         </label>
@@ -79,14 +98,11 @@ onMounted(() => {
                             <span class="custom-checkbox"></span>
                             Я знаю стоимость аренды
                         </label>
-                        <input
-                            class="custom-text"
-                            type="text"
-                            placeholder="Введите сумму"
-                            maxlength="6"
-                            v-model="params.rent_price"
-                            :disabled="!isDisabled"
-                        />
+                        <el-input class="money" v-model="params.rent_price" clearable
+                                  :parser="parseMoney" :formatter="formatMoney" :disabled="!isDisabled">
+                            <template #append><span>₽</span></template>
+                        </el-input>
+
                     </div>
                 </div>
             </div>

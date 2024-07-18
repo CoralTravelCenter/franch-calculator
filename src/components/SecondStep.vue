@@ -1,14 +1,28 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { inject, onMounted } from "vue";
+import { inject, onMounted, watch } from "vue";
 
 const params = inject("params");
 const inputValue = inject("input_filled");
+
+function parseMoney(input) {
+    return input.replace(/\D/g, '');
+}
+
+function formatMoney(input) {
+    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
+}
+
+watch(() => params.value.wanted_price_per_month, (newValue, oldValue) => {
+    inputValue.value = Number(newValue) > 0;
+});
+
 onMounted(() => {
     params.value.wanted_price_per_month.length !== 0
         ? (inputValue.value = true)
         : (inputValue.value = false);
 });
+
 </script>
 
 <template>
@@ -18,12 +32,10 @@ onMounted(() => {
                 <h2>Давайте определим вашу финансовую цель</h2>
                 <div class="input-container">
                     <h3>Когда я буду зарабатывать в месяц</h3>
-                    <input
-                        class="custom-text"
-                        v-model="params.wanted_price_per_month"
-                        placeholder="Введите сумму"
-                        @input="inputValue = true"
-                    />
+                    <el-input class="money" v-model="params.wanted_price_per_month" clearable
+                              :parser="parseMoney" :formatter="formatMoney">
+                        <template #append><span>₽</span></template>
+                    </el-input>
                 </div>
             </div>
             <Navigation />

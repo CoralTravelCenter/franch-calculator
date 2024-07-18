@@ -25,4 +25,19 @@ String.prototype.asTours = function () {
     return Number(this).asTours();
 };
 
+Number.prototype.formatPrice = function(prefix, suffix) {
+    var s;
+    s = String(Math.round(this));
+    var sum = s.split('').reverse().join('').replace(/\d{3}(?=\d)/g, "$& ").split('').reverse().join('');
+    return `${ prefix ? (prefix + ' ') : '' }${ sum }${ suffix ? (' ' + suffix) : '' }`;
+};
+
+Number.prototype.formatCurrency = function (code = 'RUB') {
+    return {
+        RUB: this.formatPrice('', '₽'),
+        EUR: this.formatPrice('€', ''),
+        USD: this.formatPrice('$', '')
+    }[code];
+};
+
 export default null;

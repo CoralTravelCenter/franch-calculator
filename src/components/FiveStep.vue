@@ -1,14 +1,24 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { inject, onMounted } from "vue";
+import { inject, onMounted, watchEffect } from "vue";
 
 const params = inject("params");
 const inputValue = inject("input_filled");
-onMounted(() => {
-    params.value.personal.length !== 0
-        ? (inputValue.value = true)
-        : (inputValue.value = false);
+
+function parsePeople(input) {
+    return input.replace(/\D/g, '');
+}
+
+function formatPeople(input) {
+    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
+}
+
+// onMounted(() => Number(params.value.personal) >= 0);
+
+watchEffect(() => {
+    inputValue.value = !!params.value.personal.length && Number(params.value.personal) > 0;
 });
+
 </script>
 
 <template>
@@ -17,13 +27,11 @@ onMounted(() => {
             <div class="content">
                 <h2>Сколько сотрудников вы планируете нанять?</h2>
                 <div class="input-container">
-                    <input
-                        class="custom-text"
-                        v-model="params.personal"
-                        placeholder="Введите количество"
-                        maxlength="6"
-                        @input="inputValue = true"
-                    />
+
+                    <el-input class="people" v-model="params.personal" clearable
+                              :parser="parsePeople" :formatter="formatPeople">
+                        <template #append><span>чел.</span></template>
+                    </el-input>
                 </div>
             </div>
             <Navigation />

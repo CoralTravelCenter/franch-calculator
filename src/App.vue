@@ -57,3 +57,16 @@ function successOrNot() {
         <Component v-else :is="steps_arr[steps_counter - 1]" />
     </section>
 </template>
+
+<style lang="less">
+.el-input.money {
+    width: 12em;
+    --el-font-size-base: 16px;
+    --el-input-height: 2.4em;
+}
+.el-input.people {
+    width: 10em;
+    --el-font-size-base: 16px;
+    --el-input-height: 2.4em;
+}
+</style>

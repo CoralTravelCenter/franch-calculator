@@ -9,11 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^2.7.7",
     "sass": "^1.77.6",
     "vue": "^3.4.21"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "less": "^4.2.0",
+    "unplugin-auto-import": "^0.18.0",
+    "unplugin-vue-components": "^0.27.3",
     "vite": "^5.2.0"
   }
 }
