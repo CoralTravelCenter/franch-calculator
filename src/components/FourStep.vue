@@ -39,11 +39,19 @@ watchEffect(() => {
     }
 });
 
-onMounted(() => inputValue.value = !!params.value.rent_type);
+onMounted(() => {
+    inputValue.value = !!params.value.rent_type || params.value.rent_price;
+    isDisabled.value = !!params.value.rent_price;
+});
 
 watchEffect(() => {
     inputValue.value = !!params.value.rent_type || Number(params.value.rent_price) > 0;
 });
+
+const advance = inject('advance');
+function commit() {
+    inputValue.value && advance();
+}
 
 </script>
 
@@ -99,7 +107,7 @@ watchEffect(() => {
                             Я знаю стоимость аренды
                         </label>
                         <el-input class="money" v-model="params.rent_price" clearable
-                                  :parser="parseMoney" :formatter="formatMoney" :disabled="!isDisabled">
+                                  :parser="parseMoney" :formatter="formatMoney" :disabled="!isDisabled" @keyup.enter="commit">
                             <template #append><span>₽</span></template>
                         </el-input>
 

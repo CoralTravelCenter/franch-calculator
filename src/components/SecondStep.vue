@@ -17,10 +17,14 @@ watch(() => params.value.wanted_price_per_month, (newValue, oldValue) => {
     inputValue.value = Number(newValue) > 0;
 });
 
+
+const advance = inject('advance');
+function commit() {
+    inputValue.value && advance();
+}
+
 onMounted(() => {
-    params.value.wanted_price_per_month.length !== 0
-        ? (inputValue.value = true)
-        : (inputValue.value = false);
+    inputValue.value = !!params.value.wanted_price_per_month && Number(params.value.wanted_price_per_month) > 0;
 });
 
 </script>
@@ -33,7 +37,7 @@ onMounted(() => {
                 <div class="input-container">
                     <h3>Когда я буду зарабатывать в месяц</h3>
                     <el-input class="money" v-model="params.wanted_price_per_month" clearable
-                              :parser="parseMoney" :formatter="formatMoney">
+                              :parser="parseMoney" :formatter="formatMoney" @keyup.enter="commit">
                         <template #append><span>₽</span></template>
                     </el-input>
                 </div>

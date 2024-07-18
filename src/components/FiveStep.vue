@@ -13,11 +13,19 @@ function formatPeople(input) {
     return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
 }
 
-// onMounted(() => Number(params.value.personal) >= 0);
+onMounted(() => {
+    inputValue.value = Number(params.value.personal) > 0;
+});
 
 watchEffect(() => {
     inputValue.value = !!params.value.personal.length && Number(params.value.personal) > 0;
 });
+
+const advance = inject('advance');
+function commit() {
+    inputValue.value && advance();
+}
+
 
 </script>
 
@@ -29,7 +37,7 @@ watchEffect(() => {
                 <div class="input-container">
 
                     <el-input class="people" v-model="params.personal" clearable
-                              :parser="parsePeople" :formatter="formatPeople">
+                              :parser="parsePeople" :formatter="formatPeople" @keyup.enter="commit">
                         <template #append><span>чел.</span></template>
                     </el-input>
                 </div>

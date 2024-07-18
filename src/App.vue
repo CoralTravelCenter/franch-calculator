@@ -30,6 +30,10 @@ provide("calculation_result", calculation_result);
 provide("show_result", show_result);
 provide("ok_or_not", ok_or_not);
 
+provide('advance', () => {
+    (steps_counter.value < 6) && steps_counter.value++;
+});
+
 const steps_arr = [
     FirstStep,
     SecondStep,

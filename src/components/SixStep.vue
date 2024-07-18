@@ -17,6 +17,11 @@ watchEffect(() => {
     inputValue.value = !!params.value.tours_per_month.length && Number(params.value.tours_per_month) > 0;
 });
 
+const advance = inject('advance');
+function commit() {
+    inputValue.value && advance();
+}
+
 </script>
 
 <template>
@@ -27,7 +32,7 @@ watchEffect(() => {
                 <div class="input-container">
 
                     <el-input class="people" v-model="params.tours_per_month" clearable
-                              :parser="parseTours" :formatter="formatTours">
+                              :parser="parseTours" :formatter="formatTours" @keyup.enter="commit">
                         <template #append><span>шт.</span></template>
                     </el-input>
 
