@@ -45,6 +45,11 @@ function appReset() {
     type_of_result.value = null;
     inputValue.value = false;
 }
+
+function jumpToAppForm() {
+    location.hash = '#Form_1';
+}
+
 </script>
 
 <template>
@@ -53,7 +58,7 @@ function appReset() {
             <button class="coral-btn gost" @click="appReset()">
                 Посчитать заново
             </button>
-            <button class="coral-btn" :disabled="!type_of_result">
+            <button class="coral-btn" :disabled="!type_of_result" @click="jumpToAppForm">
                 Оставить заявку
             </button>
         </div>

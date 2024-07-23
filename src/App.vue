@@ -34,6 +34,8 @@ provide('advance', () => {
     (steps_counter.value < 6) && steps_counter.value++;
 });
 
+provide('order-callback', () => document.querySelector('[aria-label="Обратный звонок"]')?.click());
+
 const steps_arr = [
     FirstStep,
     SecondStep,

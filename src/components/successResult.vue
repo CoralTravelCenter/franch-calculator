@@ -20,6 +20,8 @@ const success_beyond_18 = computed(() => {
     return get_result.value.months_until_roi > 18;
 });
 
+const orderCallback = inject('order-callback');
+
 </script>
 
 <template>
@@ -120,7 +122,7 @@ const success_beyond_18 = computed(() => {
                 <br>В среднем наши франчайзи выходят на чистую
 				прибыль уже спустя 8 месяцев после открытия офиса.
 			</p>
-			<button class="coral-btn coral-btn-consultation">
+			<button class="coral-btn coral-btn-consultation" @click="orderCallback">
 				Получить консультацию
 			</button>
 		</div>
@@ -151,7 +153,7 @@ const success_beyond_18 = computed(() => {
                 <br>
                 {{ success_beyond_18 }}
             </p>
-			<button class="coral-btn coral-btn-consultation">
+			<button class="coral-btn coral-btn-consultation" @click="orderCallback">
 				Получить консультацию
 			</button>
 		</div>
@@ -182,7 +184,7 @@ const success_beyond_18 = computed(() => {
                 <br>
                 {{ success_beyond_18 }}
             </p>
-			<button class="coral-btn coral-btn-consultation">
+			<button class="coral-btn coral-btn-consultation" @click="orderCallback">
 				Получить консультацию
 			</button>
 		</div>

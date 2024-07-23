@@ -3,6 +3,9 @@ import { inject } from 'vue';
 import Navigation from './Navigation.vue';
 
 const get_result = inject('calculation_result');
+
+const orderCallback = inject('order-callback');
+
 </script>
 
 <template>
@@ -31,7 +34,7 @@ const get_result = inject('calculation_result');
 				финансовые ожидания или увеличить план по продажам туров &mdash; в среднем
 				один менеджер продает 40 туров в месяц.
 			</p>
-			<button class="coral-btn coral-btn-consultation">
+			<button class="coral-btn coral-btn-consultation" @click="orderCallback">
 				Получить консультацию
 			</button>
 		</div>
