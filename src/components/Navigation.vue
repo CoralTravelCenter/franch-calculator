@@ -47,7 +47,7 @@ function appReset() {
 }
 
 function jumpToAppForm() {
-    location.hash = '#Form_1';
+    location.hash = '#Connection';
 }
 
 </script>
@@ -146,7 +146,7 @@ function jumpToAppForm() {
     align-items: center;
     gap: 8px;
     height: 22px;
-
+    background: transparent;
     span {
         min-width: 63px;
         flex-shrink: 0;

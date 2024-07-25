@@ -65,6 +65,10 @@ function successOrNot() {
 </template>
 
 <style lang="less">
+.franch-calculator {
+    margin: 4em auto 0;
+    filter: drop-shadow(0px 0px 2px rgba(0,0,0,.5));
+}
 .el-input.money {
     width: 12em;
     --el-font-size-base: 16px;
