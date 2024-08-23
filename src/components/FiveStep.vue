@@ -33,9 +33,8 @@ function commit() {
     <div class="franch-calc-container">
         <div class="franch-calc-container__part left">
             <div class="content">
-                <h2>Сколько сотрудников вы планируете нанять?</h2>
+                <h2>Сколько сотрудников вы планируете нанять дополнительно?</h2>
                 <div class="input-container">
-
                     <el-input class="people" v-model="params.personal" clearable
                               :parser="parsePeople" :formatter="formatPeople" autofocus
                               @keyup.enter="commit">
@@ -46,6 +45,19 @@ function commit() {
             <Navigation />
         </div>
         <div class="franch-calc-container__part right">
+            <ul>
+                <li>На начальном этапе открытия офиса мы рекомендуем вам лично участвовать во всех процессах, поэтому
+                    предлагаем нанимать <strong>не более одного</strong> дополнительного сотрудника.
+                </li>
+                <li>Для эффективной работы <strong>офиса в ТЦ и БЦ</strong> площадью
+                    до 25 м<sup>2</sup> мы рекомендуем нанять <strong>1-2 сотрудников</strong>.</li>
+                <li>Для успешного функционирования <strong>среднего офиса стрит-ритейла</strong> площадью 30 м<sup>2</sup> мы рекомендуем нанимать
+                    <strong>от 2х до 3х сотрудников</strong>.
+                </li>
+                <li>Для <strong>большого офиса</strong> площадью от 40 до 70 м<sup>2</sup> мы рекомендуем нанимать
+                    <strong>от 3х до 4х сотрудников</strong>.</li>
+            </ul>
+<!--
             <p>
                 На начальном этапе открытия офиса мы рекомендуем нанимать не
                 более 1 сотрудника. Для эффективной работы
@@ -57,6 +69,7 @@ function commit() {
                 <strong>большого офиса</strong> площадью от 40 до 70 м2 мы
                 рекомендуем нанимать от 3х до 4х сотрудников.
             </p>
+-->
         </div>
     </div>
 </template>
