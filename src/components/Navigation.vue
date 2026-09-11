@@ -1,91 +1,54 @@
 <script setup>
-import { inject, watch } from "vue";
-import { calculator } from "../calculator.js";
+import { useCalculatorContext } from '../composables/calculatorContext.js';
 
-const counter = inject("steps_counter");
-const result_obj = inject("params");
-const inputValue = inject("input_filled");
-const set_result = inject("calculation_result");
-const show_result = inject("show_result");
-const type_of_result = inject("ok_or_not");
-
-function increaseStep() {
-    if (counter.value < 6) {
-        counter.value++;
-    }
-}
-
-function decreseStep() {
-    if (counter.value !== 1) counter.value--;
-}
-
-function initResultStep() {
-    set_result.value = calculator(
-        result_obj.value.city,
-        result_obj.value.rent_type,
-        result_obj.value.personal,
-        result_obj.value.tours_per_month,
-        result_obj.value.wanted_price_per_month,
-        Number(result_obj.value.rent_price)
-    );
-    show_result.value = true;
-}
-
-function appReset() {
-    counter.value = 1;
-    result_obj.value = {
-        wanted_price_per_month: "",
-        city: "",
-        rent_type: "",
-        rent_price: "",
-        personal: "",
-        tours_per_month: "",
-    };
-    show_result.value = false;
-    type_of_result.value = null;
-    inputValue.value = false;
-}
-
-function jumpToAppForm() {
-    location.hash = '#Connection';
-}
-
+const {
+    calculateResult,
+    currentStep,
+    isCurrentStepValid,
+    jumpToApplicationForm,
+    nextStep,
+    previousStep,
+    reset,
+    resultSucceeded,
+    showResult,
+    totalSteps,
+} = useCalculatorContext();
 </script>
 
 <template>
     <div class="navigation">
-        <div class="actions" v-if="show_result">
-            <button class="coral-btn gost" @click="appReset()">
+        <div class="actions" v-if="showResult">
+            <button class="coral-btn gost" @click="reset">
                 Посчитать заново
             </button>
-            <button class="coral-btn" :disabled="!type_of_result" @click="jumpToAppForm">
+            <button class="coral-btn" :disabled="!resultSucceeded" @click="jumpToApplicationForm">
                 Оставить заявку
             </button>
         </div>
         <div class="actions" v-else>
             <button
                 class="coral-btn"
-                @click="increaseStep()"
-                v-if="counter < 2"
+                @click="nextStep"
+                v-if="currentStep < 2"
             >
                 Начать
             </button>
-            <button class="coral-btn gost" @click="decreseStep()" v-else>
+            <button class="coral-btn gost" @click="previousStep" v-else>
                 Назад
             </button>
             <button
                 class="coral-btn"
-                @click="inputValue && increaseStep()"
-                v-if="counter > 1 && counter < 6"
-                :disabled="!inputValue"
+                @click="nextStep"
+                v-if="currentStep > 1 && currentStep < totalSteps"
+                :disabled="!isCurrentStepValid"
             >
                 Дальше
             </button>
             <button
                 class="coral-btn"
-                @click="initResultStep()"
-                v-if="counter === 6"
-                :disabled="!inputValue"
+                @click="calculateResult"
+                v-if="currentStep === totalSteps"
+                :disabled="!isCurrentStepValid"
             >
                 Посчитать
             </button>
@@ -94,16 +57,16 @@ function jumpToAppForm() {
             <div class="progress__bar">
                 <div
                     class="progress__fill"
-                    :style="{ width: (counter / 6) * 100 + '%' }"
+                    :style="{ width: (currentStep / totalSteps) * 100 + '%' }"
                     :class="{
-                        success: type_of_result !== null && type_of_result,
-                        failed: type_of_result !== null && !type_of_result,
+                        success: resultSucceeded !== null && resultSucceeded,
+                        failed: resultSucceeded !== null && !resultSucceeded,
                     }"
                 ></div>
             </div>
-            <span v-if="!show_result">шаг {{ counter }} из 6</span>
+            <span v-if="!showResult">шаг {{ currentStep }} из {{ totalSteps }}</span>
             <svg
-                v-else-if="type_of_result"
+                v-else-if="resultSucceeded"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"

@@ -1,11 +1,8 @@
 <script setup>
-import { inject } from 'vue';
 import Navigation from './Navigation.vue';
+import { useCalculatorContext } from '../composables/calculatorContext.js';
 
-const get_result = inject('calculation_result');
-
-const orderCallback = inject('order-callback');
-
+const { orderCallback } = useCalculatorContext();
 </script>
 
 <template>

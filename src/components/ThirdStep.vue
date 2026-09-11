@@ -1,12 +1,8 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { inject, onMounted } from "vue";
+import { useCalculatorContext } from '../composables/calculatorContext.js';
 
-const params = inject("params");
-const inputValue = inject("input_filled");
-onMounted(() => {
-    inputValue.value = params.value.city.length !== 0 ? true : false;
-});
+const { params } = useCalculatorContext();
 </script>
 
 <template>
@@ -23,7 +19,6 @@ onMounted(() => {
                                 name="city"
                                 value="capital"
                                 v-model="params.city"
-                                @input="inputValue = true"
                             />
                             <span class="custom-radio"
                                 >Москва, Санкт-Петербург, Екатеринбург</span
@@ -36,7 +31,6 @@ onMounted(() => {
                                 name="city"
                                 value="millionnik"
                                 v-model="params.city"
-                                @input="inputValue = true"
                             />
                             <span class="custom-radio">Город-миллионник</span>
                         </label>
@@ -47,7 +41,6 @@ onMounted(() => {
                                 name="city"
                                 value="small"
                                 v-model="params.city"
-                                @input="inputValue = true"
                             />
                             <span class="custom-radio">Малый город</span>
                         </label>

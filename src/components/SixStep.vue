@@ -1,25 +1,13 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { inject, onMounted, watchEffect } from "vue";
+import { useCalculatorContext } from '../composables/calculatorContext.js';
+import { formatDigits, parseDigits } from '../utils/formatters.js';
 
-const params = inject("params");
-const inputValue = inject("input_filled");
-
-function parseTours(input) {
-    return input.replace(/\D/g, '');
-}
-
-function formatTours(input) {
-    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
-}
-
-watchEffect(() => {
-    inputValue.value = !!params.value.tours_per_month.length && Number(params.value.tours_per_month) > 0;
-});
-
-const advance = inject('advance');
+const { isCurrentStepValid, nextStep, params } = useCalculatorContext();
 function commit() {
-    inputValue.value && advance();
+    if (isCurrentStepValid.value) {
+        nextStep();
+    }
 }
 
 </script>
@@ -32,7 +20,7 @@ function commit() {
                 <div class="input-container">
 
                     <el-input class="people" v-model="params.tours_per_month" clearable
-                              :parser="parseTours" :formatter="formatTours" @keyup.enter="commit" autofocus>
+                              :parser="parseDigits" :formatter="formatDigits" @keyup.enter="commit" autofocus>
                         <template #append><span>шт.</span></template>
                     </el-input>
 

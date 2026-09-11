@@ -1,10 +1,10 @@
 <script setup>
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import Navigation from './Navigation.vue';
-import ___ from '../prototypes.js';
+import { useCalculatorContext } from '../composables/calculatorContext.js';
+import { formatCurrency, formatMonths, formatTours } from '../utils/formatters.js';
 
-const get_result = inject('calculation_result');
-const params = inject('params');
+const { calculationResult: get_result, orderCallback, params } = useCalculatorContext();
 
 const profit_diff = computed(() => {
     return get_result.value.wanted_profit - get_result.value.anticipated_profit;
@@ -19,8 +19,6 @@ const success_in_between_10_and_18 = computed(() => {
 const success_beyond_18 = computed(() => {
     return get_result.value.months_until_roi > 18;
 });
-
-const orderCallback = inject('order-callback');
 
 </script>
 
@@ -37,14 +35,14 @@ const orderCallback = inject('order-callback');
 				<div class="text">
 					<h3>
 						Ваши вложения окупятся через {{ get_result.months_until_roi }}
-						{{ get_result.months_until_roi.asMonths() }}
+						{{ formatMonths(get_result.months_until_roi) }}
 					</h3>
 					<p>
 						А на ежемесячный доход не менее
-                        <strong>{{ get_result.wanted_profit.formatCurrency() }}</strong>
+	                        <strong>{{ formatCurrency(get_result.wanted_profit) }}</strong>
                         вы выйдете через
                         <strong>{{ (get_result.months_until_roi + 1) }}</strong>
-						{{ (get_result.months_until_roi + 1).asMonths() }}
+						{{ formatMonths(get_result.months_until_roi + 1) }}
 					</p>
 				</div>
 			</div>
@@ -59,16 +57,16 @@ const orderCallback = inject('order-callback');
                 <div class="text">
                     <h3>
                         Ваши вложения окупятся через {{ get_result.months_until_roi }}
-                        {{ get_result.months_until_roi.asMonths() }}
+	                        {{ formatMonths(get_result.months_until_roi) }}
                     </h3>
                     <p>
-                        К сожалению, при продаже <strong>{{ params.tours_per_month }}</strong> {{ params.tours_per_month.asTours() }} в месяц
+	                        К сожалению, при продаже <strong>{{ params.tours_per_month }}</strong> {{ formatTours(params.tours_per_month) }} в месяц
                         Вы не сможете зарабатывать
-                        <strong>{{ get_result.wanted_profit.formatCurrency() }}</strong>.
+	                        <strong>{{ formatCurrency(get_result.wanted_profit) }}</strong>.
                         <br>
                         Но выйти на ожидаемый уровень Вы сможете, продавая лишь на
                         <strong>{{ (get_result.profitable_tours_count - params.tours_per_month) }}</strong>
-                        {{ (get_result.profitable_tours_count - params.tours_per_month).asTours() }}
+	                        {{ formatTours(get_result.profitable_tours_count - params.tours_per_month) }}
                         больше.
                     </p>
                 </div>
@@ -84,7 +82,7 @@ const orderCallback = inject('order-callback');
                 <div class="text">
                     <h3>
                         Ваши вложения окупятся через {{ get_result.months_until_roi }}
-                        {{ get_result.months_until_roi.asMonths() }}
+	                        {{ formatMonths(get_result.months_until_roi) }}
                     </h3>
                     <p>
                         Будьте внимательны, Ваша финансовая цель достаточно амбициозна для одного турагентства. Для того
@@ -117,7 +115,7 @@ const orderCallback = inject('order-callback');
 		<div v-if="get_result.anticipated_profit > get_result.wanted_profit" class="franch-calc-container__part right">
 			<p>
 				{{ get_result.months_until_roi }}
-				{{ get_result.months_until_roi.asMonths() }} – это
+					{{ formatMonths(get_result.months_until_roi) }} – это
 				превосходный результат!
                 <br>В среднем наши франчайзи выходят на чистую
 				прибыль уже спустя 8 месяцев после открытия офиса.
@@ -129,19 +127,19 @@ const orderCallback = inject('order-callback');
 		<div v-else-if="profit_diff <= 100000" class="franch-calc-container__part right">
 			<p v-if="success_in_9">
 				{{ get_result.months_until_roi }}
-				{{ get_result.months_until_roi.asMonths() }} – это
+					{{ formatMonths(get_result.months_until_roi) }} – это
 				превосходный результат! В среднем наши франчайзи выходят на чистую
 				прибыль уже спустя 8 месяцев после открытия офиса.
 			</p>
 			<p v-else-if="success_in_between_10_and_18">
-                {{ get_result.months_until_roi }} {{ get_result.months_until_roi.asMonths() }}
+	                {{ get_result.months_until_roi }} {{ formatMonths(get_result.months_until_roi) }}
                 &mdash; это хороший результат, но его можно улучшить.
                 <br>Вероятно, Вам следует оптимизировать
                 расходы на аренду или сократить количество сотрудников в офисе
                 &mdash; в среднем один менеджер продает 40 туров в месяц.
 			</p>
 			<p v-else-if="success_beyond_18">
-                {{ get_result.months_until_roi }} {{ get_result.months_until_roi.asMonths() }} окупаемости
+	                {{ get_result.months_until_roi }} {{ formatMonths(get_result.months_until_roi) }} окупаемости
                 &mdash; это достаточно долгий период для турагентства. Рекомендуем Вам
                 оптимизировать расходы на аренду, пересмотреть финансовые ожидания или увеличить план по продажам туров
                 &mdash; в среднем один менеджер продает 40 туров в месяц.
@@ -160,19 +158,19 @@ const orderCallback = inject('order-callback');
 		<div v-else-if="profit_diff > 100000" class="franch-calc-container__part right">
 			<p v-if="success_in_9">
 				{{ get_result.months_until_roi }}
-				{{ get_result.months_until_roi.asMonths() }} – это
+					{{ formatMonths(get_result.months_until_roi) }} – это
 				превосходный результат! В среднем наши франчайзи выходят на чистую
 				прибыль уже спустя 8 месяцев после открытия офиса.
 			</p>
 			<p v-else-if="success_in_between_10_and_18">
-                {{ get_result.months_until_roi }} {{ get_result.months_until_roi.asMonths() }}
+	                {{ get_result.months_until_roi }} {{ formatMonths(get_result.months_until_roi) }}
                 &mdash; это хороший результат, но его можно улучшить.
                 <br>Вероятно, Вам следует оптимизировать
                 расходы на аренду или сократить количество сотрудников в офисе
                 &mdash; в среднем один менеджер продает 40 туров в месяц.
 			</p>
 			<p v-else-if="success_beyond_18">
-                {{ get_result.months_until_roi }} {{ get_result.months_until_roi.asMonths() }} окупаемости
+	                {{ get_result.months_until_roi }} {{ formatMonths(get_result.months_until_roi) }} окупаемости
                 &mdash; это достаточно долгий период для турагентства. Рекомендуем Вам
                 оптимизировать расходы на аренду, пересмотреть финансовые ожидания или увеличить план по продажам туров
                 &mdash; в среднем один менеджер продает 40 туров в месяц.

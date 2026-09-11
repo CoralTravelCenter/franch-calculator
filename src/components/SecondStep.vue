@@ -1,32 +1,14 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { inject, onMounted, watch } from "vue";
+import { useCalculatorContext } from '../composables/calculatorContext.js';
+import { formatDigits, parseDigits } from '../utils/formatters.js';
 
-const params = inject("params");
-const inputValue = inject("input_filled");
-
-function parseMoney(input) {
-    return input.replace(/\D/g, '');
-}
-
-function formatMoney(input) {
-    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
-}
-
-watch(() => params.value.wanted_price_per_month, (newValue, oldValue) => {
-    inputValue.value = Number(newValue) > 0;
-});
-
-
-const advance = inject('advance');
+const { isCurrentStepValid, nextStep, params } = useCalculatorContext();
 function commit() {
-    inputValue.value && advance();
+    if (isCurrentStepValid.value) {
+        nextStep();
+    }
 }
-
-onMounted(() => {
-    inputValue.value = !!params.value.wanted_price_per_month && Number(params.value.wanted_price_per_month) > 0;
-});
-
 </script>
 
 <template>
@@ -37,7 +19,7 @@ onMounted(() => {
                 <div class="input-container">
                     <h3>Когда я буду зарабатывать в месяц</h3>
                     <el-input class="money" v-model="params.wanted_price_per_month" clearable
-                              :parser="parseMoney" :formatter="formatMoney" @keyup.enter="commit" autofocus>
+                              :parser="parseDigits" :formatter="formatDigits" @keyup.enter="commit" autofocus>
                         <template #append><span>₽</span></template>
                     </el-input>
                 </div>

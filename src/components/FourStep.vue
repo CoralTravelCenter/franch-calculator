@@ -1,12 +1,13 @@
 <script setup>
 import Navigation from "./Navigation.vue";
-import { ref, inject, onMounted, computed, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 
 import { rent } from "../calculator.js";
+import { useCalculatorContext } from '../composables/calculatorContext.js';
+import { formatCurrency, formatDigits, parseDigits } from '../utils/formatters.js';
 
-const isDisabled = ref(false);
-const params = inject("params");
-const inputValue = inject("input_filled");
+const { isCurrentStepValid, nextStep, params } = useCalculatorContext();
+const useCustomRent = ref(Boolean(params.value.rent_price));
 
 const rent_cost_TC = computed(() => {
     return rent.TC[params.value.city];
@@ -18,39 +19,23 @@ const rent_cost_SR = computed(() => {
     return rent.SR[params.value.city];
 });
 
-function parseMoney(input) {
-    return input.replace(/\D/g, '');
-}
-
-function formatMoney(input) {
-    return input.replace(/\D/g, '').split('').reverse().join('').replace(/\d{3}(?=.)/g, "$& ").split('').reverse().join('');
-}
-
-watchEffect(() => {
-    if (isDisabled.value) {
+watch(useCustomRent, (isEnabled) => {
+    if (isEnabled) {
         params.value.rent_type = '';
     }
 });
 
-watchEffect(() => {
-    if (params.value.rent_type) {
-        isDisabled.value = false;
+watch(() => params.value.rent_type, (rentType) => {
+    if (rentType) {
+        useCustomRent.value = false;
         params.value.rent_price = '';
     }
 });
 
-onMounted(() => {
-    inputValue.value = !!params.value.rent_type || params.value.rent_price;
-    isDisabled.value = !!params.value.rent_price;
-});
-
-watchEffect(() => {
-    inputValue.value = !!params.value.rent_type || Number(params.value.rent_price) > 0;
-});
-
-const advance = inject('advance');
 function commit() {
-    inputValue.value && advance();
+    if (isCurrentStepValid.value) {
+        nextStep();
+    }
 }
 
 </script>
@@ -69,7 +54,6 @@ function commit() {
                                 name="type"
                                 value="TC"
                                 v-model="params.rent_type"
-                                @change="inputValue = true"
                             />
                             <span class="custom-radio">Торговый центр</span>
                         </label>
@@ -80,7 +64,6 @@ function commit() {
                                 name="type"
                                 value="BC"
                                 v-model="params.rent_type"
-                                @change="inputValue = true"
                             />
                             <span class="custom-radio">Бизнес-центр</span>
                         </label>
@@ -91,7 +74,6 @@ function commit() {
                                 name="type"
                                 value="SR"
                                 v-model="params.rent_type"
-                                @change="inputValue = true"
                             />
                             <span class="custom-radio">Стрит-ретейл</span>
                         </label>
@@ -101,13 +83,13 @@ function commit() {
                             <input
                                 type="checkbox"
                                 class="visually-hidden"
-                                v-model="isDisabled"
+                                v-model="useCustomRent"
                             />
                             <span class="custom-checkbox"></span>
                             Я знаю стоимость аренды
                         </label>
                         <el-input class="money" v-model="params.rent_price" clearable
-                                  :parser="parseMoney" :formatter="formatMoney" :disabled="!isDisabled" @keyup.enter="commit">
+                                  :parser="parseDigits" :formatter="formatDigits" :disabled="!useCustomRent" @keyup.enter="commit">
                             <template #append><span>₽</span></template>
                         </el-input>
 
@@ -123,11 +105,11 @@ function commit() {
             </p>
             <p>
                 <strong>
-                    ТЦ &mdash; {{ rent_cost_TC.formatCurrency() }}
+                    ТЦ &mdash; {{ formatCurrency(rent_cost_TC) }}
                     <br />
-                    БЦ &mdash; {{ rent_cost_BC.formatCurrency() }}
+                    БЦ &mdash; {{ formatCurrency(rent_cost_BC) }}
                     <br />
-                    Стрит-ретейл &mdash; {{ rent_cost_SR.formatCurrency() }}
+                    Стрит-ретейл &mdash; {{ formatCurrency(rent_cost_SR) }}
                 </strong>
             </p>
         </div>
