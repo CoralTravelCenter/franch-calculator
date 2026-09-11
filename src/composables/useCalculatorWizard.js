@@ -1,8 +1,19 @@
-import { computed, ref } from 'vue';
-import { calculator } from '../calculator.js';
+import { computed, readonly, ref } from 'vue';
+import { calculator } from '@/calculator.js';
 
 const LAST_STEP = 6;
 
+/**
+ * @typedef {Object} CalculatorParams
+ * @property {string} wanted_price_per_month
+ * @property {'' | 'capital' | 'millionnik' | 'small'} city
+ * @property {'' | 'TC' | 'BC' | 'SR'} rent_type
+ * @property {string} rent_price
+ * @property {string} personal
+ * @property {string} tours_per_month
+ */
+
+/** @returns {CalculatorParams} */
 function createInitialParams() {
     return {
         wanted_price_per_month: '',
@@ -14,9 +25,14 @@ function createInitialParams() {
     };
 }
 
-export function useCalculatorWizard() {
+export function useCalculatorWizard({
+    jumpToApplicationForm = () => {},
+    orderCallback = () => {},
+} = {}) {
     const currentStep = ref(1);
+    /** @type {import('vue').Ref<CalculatorParams>} */
     const params = ref(createInitialParams());
+    /** @type {import('vue').Ref<import('@/calculator.js').CalculationResult | null>} */
     const calculationResult = ref(null);
     const showResult = ref(false);
     const resultSucceeded = ref(null);
@@ -39,7 +55,7 @@ export function useCalculatorWizard() {
     });
 
     function nextStep() {
-        if (currentStep.value < LAST_STEP) {
+        if (isCurrentStepValid.value && currentStep.value < LAST_STEP) {
             currentStep.value++;
         }
     }
@@ -51,6 +67,10 @@ export function useCalculatorWizard() {
     }
 
     function calculateResult() {
+        if (currentStep.value !== LAST_STEP || !isCurrentStepValid.value) {
+            return;
+        }
+
         calculationResult.value = calculator(
             params.value.city,
             params.value.rent_type,
@@ -59,8 +79,17 @@ export function useCalculatorWizard() {
             params.value.wanted_price_per_month,
             Number(params.value.rent_price),
         );
-        resultSucceeded.value = calculationResult.value.months_until_roi > 0;
+        resultSucceeded.value = Number.isFinite(calculationResult.value.months_until_roi)
+            && calculationResult.value.months_until_roi > 0;
         showResult.value = true;
+    }
+
+    /**
+     * @param {keyof CalculatorParams} name
+     * @param {string} value
+     */
+    function updateParam(name, value) {
+        params.value[name] = value;
     }
 
     function reset() {
@@ -71,27 +100,20 @@ export function useCalculatorWizard() {
         resultSucceeded.value = null;
     }
 
-    function orderCallback() {
-        document.querySelector('[aria-label="Обратный звонок"]')?.click();
-    }
-
-    function jumpToApplicationForm() {
-        location.hash = '#Connection';
-    }
-
     return {
-        calculationResult,
+        calculationResult: readonly(calculationResult),
         calculateResult,
-        currentStep,
+        currentStep: readonly(currentStep),
         isCurrentStepValid,
         jumpToApplicationForm,
         nextStep,
         orderCallback,
-        params,
+        params: readonly(params),
         previousStep,
         reset,
-        resultSucceeded,
-        showResult,
+        resultSucceeded: readonly(resultSucceeded),
+        showResult: readonly(showResult),
         totalSteps: LAST_STEP,
+        updateParam,
     };
 }

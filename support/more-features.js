@@ -1,20 +1,23 @@
-console.log('Injecting calculator...');
+function injectCalculator() {
+    const insertionPoint = document.getElementById('Newbies');
 
-const injectCalculatorBeforeEL = document.getElementById('Newbies');
+    if (!insertionPoint?.parentElement) {
+        console.warn('Calculator was not injected: #Newbies container was not found.');
+        return;
+    }
 
-const calcAppEl = document.createElement('div');
-calcAppEl.setAttribute('id', 'app');
+    const calculatorRoot = document.createElement('div');
+    calculatorRoot.id = 'app';
+    insertionPoint.parentElement.insertBefore(calculatorRoot, insertionPoint);
 
-injectCalculatorBeforeEL.parentElement.insertBefore(calcAppEl, injectCalculatorBeforeEL);
+    const calculatorStyles = document.createElement('link');
+    calculatorStyles.rel = 'stylesheet';
+    calculatorStyles.href = '//b2ccdn.coral.ru/content/lib/franch-coral-ru/calc/calculator.css';
+    document.head.append(calculatorStyles);
 
-const calcStylesEl = document.createElement('link');
-calcStylesEl.rel = 'stylesheet';
-// calcStylesEl.href = '//b2ccdn.coral.ru/content/lib/franch-coral-ru/calc/index-BcZcCWaM.css';
-calcStylesEl.href = '//b2ccdn.coral.ru/content/lib/franch-coral-ru/calc/index-B6c-_6cg.css';
-document.head.append(calcStylesEl);
+    const calculatorScript = document.createElement('script');
+    calculatorScript.src = '//b2ccdn.coral.ru/content/lib/franch-coral-ru/calc/calculator.js';
+    document.body.append(calculatorScript);
+}
 
-const calcScriptEl = document.createElement('script');
-// calcScriptEl.src = '//b2ccdn.coral.ru/content/lib/franch-coral-ru/calc/index-C1Rw-BOb.js';
-calcScriptEl.src = '//b2ccdn.coral.ru/content/lib/franch-coral-ru/calc/index-TxA7Voq5.js';
-document.body.append(calcScriptEl);
-
+injectCalculator();

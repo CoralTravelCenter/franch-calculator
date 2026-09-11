@@ -1,5 +1,8 @@
 <script setup>
-import { useCalculatorContext } from '../composables/calculatorContext.js';
+import { useCalculatorContext } from '@/composables/calculatorContext.js';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { TypographyText } from '@/components/ui/typography';
 
 const {
     calculateResult,
@@ -18,53 +21,44 @@ const {
 <template>
     <div class="navigation">
         <div class="actions" v-if="showResult">
-            <button class="coral-btn gost" @click="reset">
-                Посчитать заново
-            </button>
-            <button class="coral-btn" :disabled="!resultSucceeded" @click="jumpToApplicationForm">
-                Оставить заявку
-            </button>
+            <Button variant="outline" @click="reset">
+                <TypographyText as="span">Посчитать заново</TypographyText>
+            </Button>
+            <Button :disabled="!resultSucceeded" @click="jumpToApplicationForm">
+                <TypographyText as="span">Оставить заявку</TypographyText>
+            </Button>
         </div>
         <div class="actions" v-else>
-            <button
-                class="coral-btn"
+            <Button
                 @click="nextStep"
                 v-if="currentStep < 2"
             >
-                Начать
-            </button>
-            <button class="coral-btn gost" @click="previousStep" v-else>
-                Назад
-            </button>
-            <button
-                class="coral-btn"
+                <TypographyText as="span">Начать</TypographyText>
+            </Button>
+            <Button variant="outline" @click="previousStep" v-else>
+                <TypographyText as="span">Назад</TypographyText>
+            </Button>
+            <Button
                 @click="nextStep"
                 v-if="currentStep > 1 && currentStep < totalSteps"
                 :disabled="!isCurrentStepValid"
             >
-                Дальше
-            </button>
-            <button
-                class="coral-btn"
+                <TypographyText as="span">Дальше</TypographyText>
+            </Button>
+            <Button
                 @click="calculateResult"
                 v-if="currentStep === totalSteps"
                 :disabled="!isCurrentStepValid"
             >
-                Посчитать
-            </button>
+                <TypographyText as="span">Посчитать</TypographyText>
+            </Button>
         </div>
         <div class="progress">
-            <div class="progress__bar">
-                <div
-                    class="progress__fill"
-                    :style="{ width: (currentStep / totalSteps) * 100 + '%' }"
-                    :class="{
-                        success: resultSucceeded !== null && resultSucceeded,
-                        failed: resultSucceeded !== null && !resultSucceeded,
-                    }"
-                ></div>
-            </div>
-            <span v-if="!showResult">шаг {{ currentStep }} из {{ totalSteps }}</span>
+            <Progress
+                :model-value="(currentStep / totalSteps) * 100"
+                :status="showResult ? (resultSucceeded ? 'success' : 'failed') : 'default'"
+            />
+            <TypographyText v-if="!showResult" as="span" class="mb-1 min-w-16 shrink-0 text-sm leading-none">шаг {{ currentStep }} из {{ totalSteps }}</TypographyText>
             <svg
                 v-else-if="resultSucceeded"
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,34 +103,6 @@ const {
     align-items: center;
     gap: 8px;
     height: 22px;
-    background: transparent;
-    span {
-        min-width: 63px;
-        flex-shrink: 0;
-        line-height: 1;
-    }
-}
-
-.progress__bar {
-    width: 100%;
-    height: 10px;
-    background: #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.progress__fill {
-    background-color: #0092d0;
-    border-radius: 4px;
-    height: 10px;
-}
-
-.progress__fill.success {
-    background-color: #52c41a;
-}
-
-.progress__fill.failed {
-    background-color: #e84f0e;
 }
 
 .actions {
@@ -144,5 +110,11 @@ const {
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 24px;
+
+    @media (max-width: 768px) {
+        > * {
+            width: 100%;
+        }
+    }
 }
 </style>

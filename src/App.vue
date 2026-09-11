@@ -1,53 +1,58 @@
 <script setup>
-import { computed, provide } from 'vue';
-import FirstStep from "./components/FirstStep.vue";
-import SecondStep from "./components/SecondStep.vue";
-import ThirdStep from "./components/ThirdStep.vue";
-import FourStep from "./components/FourStep.vue";
-import FiveStep from "./components/FiveStep.vue";
-import SixStep from "./components/SixStep.vue";
-import SuccessResult from "./components/successResult.vue";
-import FailedResult from "./components/failedResult.vue";
-import { calculatorContextKey } from './composables/calculatorContext.js';
-import { useCalculatorWizard } from './composables/useCalculatorWizard.js';
+import {computed, nextTick, provide, ref, watch} from 'vue';
+import FirstStep from "./components/steps/FirstStep.vue";
+import SecondStep from "./components/steps/SecondStep.vue";
+import ThirdStep from "./components/steps/ThirdStep.vue";
+import FourStep from "./components/steps/FourStep.vue";
+import FiveStep from "./components/steps/FiveStep.vue";
+import SixStep from "./components/steps/SixStep.vue";
+import SuccessResult from "./components/SuccessResult.vue";
+import FailedResult from "./components/FailedResult.vue";
+import {calculatorContextKey} from './composables/calculatorContext.js';
+import {useCalculatorWizard} from './composables/useCalculatorWizard.js';
 
-const calculatorWizard = useCalculatorWizard();
+const {integration} = defineProps({
+	integration: {
+		type: Object,
+		required: true,
+	},
+});
+
+const calculatorWizard = useCalculatorWizard(integration);
 provide(calculatorContextKey, calculatorWizard);
 
 const steps = [
-    FirstStep,
-    SecondStep,
-    ThirdStep,
-    FourStep,
-    FiveStep,
-    SixStep,
+	FirstStep,
+	SecondStep,
+	ThirdStep,
+	FourStep,
+	FiveStep,
+	SixStep,
 ];
 
+const activeStep = computed(() => steps[calculatorWizard.currentStep.value - 1]);
+
 const resultComponent = computed(() => (
-    calculatorWizard.resultSucceeded.value ? SuccessResult : FailedResult
+		calculatorWizard.resultSucceeded.value ? SuccessResult : FailedResult
 ));
+
+const stepsStack = ref(null);
+
+watch(calculatorWizard.currentStep, async () => {
+	await nextTick();
+	stepsStack.value
+			?.querySelector('.steps-stack__item--active [autofocus]')
+			?.focus({preventScroll: true});
+});
 </script>
 
 <template>
-    <section class="franch-calculator">
-        <Component v-if="calculatorWizard.showResult.value" :is="resultComponent" />
-        <Component v-else :is="steps[calculatorWizard.currentStep.value - 1]" />
-    </section>
+	<section class="franch-calculator overflow-clip rounded-[20px]">
+		<Component v-if="calculatorWizard.showResult.value" :is="resultComponent"/>
+		<div v-else ref="stepsStack" class="steps-stack">
+			<div class="steps-stack__item steps-stack__item--active">
+				<Component :is="activeStep" :key="calculatorWizard.currentStep.value"/>
+			</div>
+		</div>
+	</section>
 </template>
-
-<style lang="less">
-.franch-calculator {
-    margin: 4em auto 0;
-    filter: drop-shadow(0px 0px 2px rgba(0,0,0,.5));
-}
-.el-input.money {
-    width: 12em;
-    --el-font-size-base: 16px;
-    --el-input-height: 2.4em;
-}
-.el-input.people {
-    width: 10em;
-    --el-font-size-base: 16px;
-    --el-input-height: 2.4em;
-}
-</style>

@@ -8,6 +8,16 @@ const immutable = {
 	start_up_capital: 300000,
 };
 
+/**
+ * @typedef {'capital' | 'millionnik' | 'small'} City
+ * @typedef {'TC' | 'BC' | 'SR' | ''} RentType
+ * @typedef {Object} CalculationResult
+ * @property {number} months_until_roi
+ * @property {number} wanted_profit
+ * @property {number} anticipated_profit
+ * @property {number} profitable_tours_count
+ */
+
 export const rent = {
 	TC: {
 		capital: 150000,
@@ -32,11 +42,15 @@ const salary = {
 	small: 40000,
 };
 
-function checkDifference(num1, num2) {
-	const difference = Math.abs(num1 - num2);
-	return difference <= 100000;
-}
-
+/**
+ * @param {City} city
+ * @param {RentType} rent_type
+ * @param {string | number} personal
+ * @param {string | number} tours
+ * @param {string | number} wanted_price_per_month
+ * @param {number} rent_value
+ * @returns {CalculationResult}
+ */
 export function calculator(
 	city,
 	rent_type,
@@ -45,12 +59,6 @@ export function calculator(
 	wanted_price_per_month,
 	rent_value
 ) {
-	const calculation_results = {
-		month_of_trading: null,
-		wanted_price_per_month: wanted_price_per_month,
-		needed_tours: null,
-	};
-
 	const get_rent = rent_type ? rent[rent_type][city] : rent_value;
 
 	const monthCalculation = () => {
@@ -75,24 +83,10 @@ export function calculator(
 		return Math.ceil(numerator / denominator);
 	};
 
-	if (Number(wanted_price_per_month) >= potentialProfitability()) {
-		// calculation_results.month_of_trading = monthCalculation() + 1;
-		calculation_results.month_of_trading = monthCalculation();
-	}
-
-	if (
-		Number(wanted_price_per_month) < potentialProfitability() &&
-		checkDifference(Number(wanted_price_per_month), potentialProfitability())
-	) {
-		calculation_results.needed_tours = neededTours() - tours;
-	}
-
 	return {
 		months_until_roi: monthCalculation(),
 		wanted_profit: Number(wanted_price_per_month),
 		anticipated_profit: potentialProfitability(),
 		profitable_tours_count: neededTours()
 	};
-
-	// return calculation_results;
 }

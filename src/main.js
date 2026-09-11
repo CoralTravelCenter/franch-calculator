@@ -1,5 +1,9 @@
 import {createApp} from 'vue'
-import './style.scss'
-import App from './App.vue'
+import '@/shadcn.css'
+import '@/style.scss'
+import App from '@/App.vue'
+import { createHostPageIntegration } from '@/integrations/hostPage.js'
 
-createApp(App).mount('#app')
+createApp(App, {
+    integration: createHostPageIntegration(),
+}).mount('#app')
