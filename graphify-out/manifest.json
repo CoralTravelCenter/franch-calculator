@@ -1,0 +1,98 @@
+{
+  "package.json": {
+    "mtime": 1789053401.1894243,
+    "seen": 1789054859.403626,
+    "ast_hash": "e39b8a2e36d79463be005f9dde7201ff",
+    "semantic_hash": "e39b8a2e36d79463be005f9dde7201ff"
+  },
+  "src/App.vue": {
+    "mtime": 1789053401.189929,
+    "seen": 1789054859.403629,
+    "ast_hash": "6fb377880d5697227a1d3c560852c875",
+    "semantic_hash": "6fb377880d5697227a1d3c560852c875"
+  },
+  "src/calculator.js": {
+    "mtime": 1789053401.1901684,
+    "seen": 1789054859.40363,
+    "ast_hash": "07cd68d0912771ed0139c5583e7a43d8",
+    "semantic_hash": "07cd68d0912771ed0139c5583e7a43d8"
+  },
+  "src/components/FirstStep.vue": {
+    "mtime": 1789053401.1903083,
+    "seen": 1789054859.4036312,
+    "ast_hash": "9e50cec9c9ba93b606926ad2c7f87666",
+    "semantic_hash": "9e50cec9c9ba93b606926ad2c7f87666"
+  },
+  "src/components/FiveStep.vue": {
+    "mtime": 1789053401.1904233,
+    "seen": 1789054859.4036312,
+    "ast_hash": "c0ad54f8c77003910e9d6e2d76a09e8b",
+    "semantic_hash": "c0ad54f8c77003910e9d6e2d76a09e8b"
+  },
+  "src/components/FourStep.vue": {
+    "mtime": 1789053401.19055,
+    "seen": 1789054859.4036322,
+    "ast_hash": "732c37c741bbaf6db37dfd064790ff01",
+    "semantic_hash": "732c37c741bbaf6db37dfd064790ff01"
+  },
+  "src/components/Navigation.vue": {
+    "mtime": 1789053401.1906755,
+    "seen": 1789054859.4036329,
+    "ast_hash": "03c326151b48f650297227f5ea8c6132",
+    "semantic_hash": "03c326151b48f650297227f5ea8c6132"
+  },
+  "src/components/SecondStep.vue": {
+    "mtime": 1789053401.19078,
+    "seen": 1789054859.4036329,
+    "ast_hash": "c81e895b62e04e7d8b1b87199a52f34e",
+    "semantic_hash": "c81e895b62e04e7d8b1b87199a52f34e"
+  },
+  "src/components/SixStep.vue": {
+    "mtime": 1789053401.1908565,
+    "seen": 1789054859.4036338,
+    "ast_hash": "14b1006e53db8c6e68203b83ea393b01",
+    "semantic_hash": "14b1006e53db8c6e68203b83ea393b01"
+  },
+  "src/components/ThirdStep.vue": {
+    "mtime": 1789053401.1909466,
+    "seen": 1789054859.4036338,
+    "ast_hash": "291b75e1d316de98faa5fb4d74eb99f2",
+    "semantic_hash": "291b75e1d316de98faa5fb4d74eb99f2"
+  },
+  "src/components/failedResult.vue": {
+    "mtime": 1789053401.1910439,
+    "seen": 1789054859.403635,
+    "ast_hash": "d620b102729fac3ff9335f483819b3f6",
+    "semantic_hash": "d620b102729fac3ff9335f483819b3f6"
+  },
+  "src/components/successResult.vue": {
+    "mtime": 1789053401.191152,
+    "seen": 1789054859.403636,
+    "ast_hash": "9132df5fee1231b7a54981f4afec46d5",
+    "semantic_hash": "9132df5fee1231b7a54981f4afec46d5"
+  },
+  "src/main.js": {
+    "mtime": 1789053401.191228,
+    "seen": 1789054859.403637,
+    "ast_hash": "6b840baafb73df0a078821d922f411b9",
+    "semantic_hash": "6b840baafb73df0a078821d922f411b9"
+  },
+  "src/prototypes.js": {
+    "mtime": 1789053401.1913474,
+    "seen": 1789054859.403637,
+    "ast_hash": "abaadd7158836e1d99671a5f2e2ef4e2",
+    "semantic_hash": "abaadd7158836e1d99671a5f2e2ef4e2"
+  },
+  "support/more-features.js": {
+    "mtime": 1789053401.191604,
+    "seen": 1789054859.4036381,
+    "ast_hash": "f0c07a4588ead3b45e5080d6f638c49e",
+    "semantic_hash": "f0c07a4588ead3b45e5080d6f638c49e"
+  },
+  "vite.config.js": {
+    "mtime": 1789053401.191698,
+    "seen": 1789054859.4036381,
+    "ast_hash": "39c73ac59ddfd429ddab9164bb0d5a1d",
+    "semantic_hash": "39c73ac59ddfd429ddab9164bb0d5a1d"
+  }
+}

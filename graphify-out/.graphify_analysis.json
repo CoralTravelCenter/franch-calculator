@@ -1,0 +1,264 @@
+{
+  "communities": {
+    "0": [
+      "src_calculator",
+      "src_calculator_calculator",
+      "src_calculator_checkdifference",
+      "src_calculator_immutable",
+      "src_calculator_rent",
+      "src_calculator_salary",
+      "src_components_navigation",
+      "src_components_navigation_appreset",
+      "src_components_navigation_counter",
+      "src_components_navigation_decresestep",
+      "src_components_navigation_increasestep",
+      "src_components_navigation_initresultstep",
+      "src_components_navigation_inputvalue",
+      "src_components_navigation_jumptoappform",
+      "src_components_navigation_result_obj",
+      "src_components_navigation_set_result",
+      "src_components_navigation_show_result",
+      "src_components_navigation_type_of_result"
+    ],
+    "1": [
+      "src_app",
+      "src_app_calculation_result",
+      "src_app_input_filled",
+      "src_app_ok_or_not",
+      "src_app_params",
+      "src_app_show_result",
+      "src_app_steps_arr",
+      "src_app_steps_counter",
+      "src_app_successornot",
+      "src_components_failedresult",
+      "src_components_failedresult_get_result",
+      "src_components_failedresult_ordercallback",
+      "src_components_firststep",
+      "src_components_thirdstep",
+      "src_components_thirdstep_inputvalue",
+      "src_components_thirdstep_params",
+      "src_main"
+    ],
+    "2": [
+      "element_plus",
+      "package",
+      "package_dependencies",
+      "package_dependencies_element_plus",
+      "package_dependencies_sass",
+      "package_dependencies_vue",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_preview",
+      "package_type",
+      "package_version",
+      "sass",
+      "vue"
+    ],
+    "3": [
+      "less",
+      "package_devdependencies",
+      "package_devdependencies_less",
+      "package_devdependencies_unplugin_auto_import",
+      "package_devdependencies_unplugin_vue_components",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_vue",
+      "unplugin_auto_import",
+      "unplugin_vue_components",
+      "vite",
+      "vitejs_plugin_vue"
+    ],
+    "4": [
+      "src_components_fourstep",
+      "src_components_fourstep_advance",
+      "src_components_fourstep_commit",
+      "src_components_fourstep_formatmoney",
+      "src_components_fourstep_inputvalue",
+      "src_components_fourstep_isdisabled",
+      "src_components_fourstep_params",
+      "src_components_fourstep_parsemoney",
+      "src_components_fourstep_rent_cost_bc",
+      "src_components_fourstep_rent_cost_sr",
+      "src_components_fourstep_rent_cost_tc"
+    ],
+    "5": [
+      "src_components_successresult",
+      "src_components_successresult_get_result",
+      "src_components_successresult_ordercallback",
+      "src_components_successresult_params",
+      "src_components_successresult_profit_diff",
+      "src_components_successresult_success_beyond_18",
+      "src_components_successresult_success_in_9",
+      "src_components_successresult_success_in_between_10_and_18",
+      "src_prototypes"
+    ],
+    "6": [
+      "src_components_fivestep",
+      "src_components_fivestep_advance",
+      "src_components_fivestep_commit",
+      "src_components_fivestep_formatpeople",
+      "src_components_fivestep_inputvalue",
+      "src_components_fivestep_params",
+      "src_components_fivestep_parsepeople"
+    ],
+    "7": [
+      "src_components_secondstep",
+      "src_components_secondstep_advance",
+      "src_components_secondstep_commit",
+      "src_components_secondstep_formatmoney",
+      "src_components_secondstep_inputvalue",
+      "src_components_secondstep_params",
+      "src_components_secondstep_parsemoney"
+    ],
+    "8": [
+      "src_components_sixstep",
+      "src_components_sixstep_advance",
+      "src_components_sixstep_commit",
+      "src_components_sixstep_formattours",
+      "src_components_sixstep_inputvalue",
+      "src_components_sixstep_params",
+      "src_components_sixstep_parsetours"
+    ],
+    "9": [
+      "support_more_features",
+      "support_more_features_calcappel",
+      "support_more_features_calcscriptel",
+      "support_more_features_calcstylesel",
+      "support_more_features_injectcalculatorbeforeel"
+    ],
+    "10": [
+      "src_prototypes_number_asmonths",
+      "src_prototypes_number_asroubles",
+      "src_prototypes_number_astours",
+      "src_prototypes_number_pluralform"
+    ],
+    "11": [
+      "src_prototypes_number_formatcurrency",
+      "src_prototypes_number_formatprice"
+    ],
+    "12": [
+      "src_prototypes_string_asmonths"
+    ],
+    "13": [
+      "src_prototypes_string_asroubles"
+    ],
+    "14": [
+      "src_prototypes_string_astours"
+    ],
+    "15": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.13071895424836602,
+    "1": 0.11764705882352941,
+    "2": 0.125,
+    "3": 0.18181818181818182,
+    "4": 0.2,
+    "5": 0.2222222222222222,
+    "6": 0.3333333333333333,
+    "7": 0.3333333333333333,
+    "8": 0.3333333333333333,
+    "9": 0.4,
+    "10": 0.5,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_calculator_calculator",
+      "label": "calculator()",
+      "degree": 4
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 4
+    },
+    {
+      "id": "src_calculator_checkdifference",
+      "label": "checkDifference()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_navigation_initresultstep",
+      "label": "initResultStep()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_fourstep_commit",
+      "label": "commit()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_fivestep_commit",
+      "label": "commit()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_secondstep_commit",
+      "label": "commit()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_sixstep_commit",
+      "label": "commit()",
+      "degree": 2
+    },
+    {
+      "id": "src_calculator_rent",
+      "label": "rent",
+      "degree": 2
+    },
+    {
+      "id": "package_dependencies_element_plus",
+      "label": "element-plus",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "initResultStep()",
+      "target": "calculator()",
+      "source_files": [
+        "src/components/Navigation.vue",
+        "src/calculator.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `devDependencies` connect `devDependencies` to `package.json`?",
+      "why": "High betweenness centrality (0.029) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `immutable`, `salary`, `counter` to the rest of the system?",
+      "why": "57 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Navigation.vue` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13071895424836602 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `App.vue` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `package.json` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.125 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
