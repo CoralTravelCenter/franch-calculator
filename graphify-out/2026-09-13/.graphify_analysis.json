@@ -271,13 +271,8 @@
       "degree": 9
     },
     {
-      "id": "src_utils_formatters_formatdigits",
-      "label": "formatDigits()",
-      "degree": 6
-    },
-    {
-      "id": "src_utils_formatters_parsedigits",
-      "label": "parseDigits()",
+      "id": "components_tailwind",
+      "label": "tailwind",
       "degree": 6
     },
     {
@@ -286,9 +281,19 @@
       "degree": 6
     },
     {
-      "id": "components_tailwind",
-      "label": "tailwind",
+      "id": "src_utils_formatters_parsedigits",
+      "label": "parseDigits()",
       "degree": 6
+    },
+    {
+      "id": "src_utils_formatters_formatdigits",
+      "label": "formatDigits()",
+      "degree": 6
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
     },
     {
       "id": "src_config_calculatorresults_resolveresultscenario",
@@ -298,11 +303,6 @@
     {
       "id": "src_config_calculatorresults_resolveroiperiod",
       "label": "resolveRoiPeriod()",
-      "degree": 5
-    },
-    {
-      "id": "src_utils_formatters_formatcurrency",
-      "label": "formatCurrency()",
       "degree": 5
     }
   ],
@@ -341,41 +341,8 @@
       "why": "cross-file semantic connection"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `cn()` connect `utils.js` to `App.vue`, `steps/FourStep.vue`, `ToggleGroupItem.vue`?",
-      "why": "High betweenness centrality (0.048) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `useCalculatorWizard()` connect `useCalculatorWizard` to `App.vue`?",
-      "why": "High betweenness centrality (0.033) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `dependencies` connect `dependencies` to `package.json`?",
-      "why": "High betweenness centrality (0.030) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 5 inferred relationships involving `useCalculatorWizard()` (e.g. with `calculateResult()` and `nextStep()`) actually correct?",
-      "why": "`useCalculatorWizard()` has 5 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `activeStep`, `calculatorWizard`, `{integration}` to the rest of the system?",
-      "why": "97 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `App.vue` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `utils.js` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.09195402298850575 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
 }
